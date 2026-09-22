@@ -8,12 +8,17 @@ interface SageMascotProps {
 /**
  * AstroYoda's mascot: an original, hand-drawn "cosmic sage" character.
  *
- * Deliberately designed to read as a wise little guide (fitting the site's
- * name and Vedic-astrology theme) while staying visually distinct from any
- * existing copyrighted character: lavender skin rather than green, a
- * gold-trimmed cloth headwrap in place of large pointed ears, an asymmetric
- * draped Vedic-sage robe with a japa mala and forehead mark, seated in a
- * meditation pose with a starlit aura rather than standing with a cane.
+ * The brief was "give it Yoda vibes" — so this leans into the *archetype*
+ * (small, ancient, wise, gently wrinkled) through original details rather
+ * than copying Yoda's own protected design: lavender skin instead of
+ * green; long, drooping earlobes (a traditional mark of wisdom in Indian
+ * iconography) instead of large pointed ears; a gold-trimmed headwrap
+ * instead of a bald head; forehead creases, bushy pale eyebrows and a
+ * wisp of a white beard for an elder's face; an asymmetric draped
+ * Vedic-sage robe with a japa mala and forehead mark instead of a plain
+ * hooded robe; seated in meditation under a starlit aura rather than
+ * standing with a cane. Recognizable as "wise ancient little guide," not
+ * as any specific copyrighted character.
  */
 export default function SageMascot({ size = 96, className, animated = false }: SageMascotProps) {
   return (
@@ -117,9 +122,19 @@ export default function SageMascot({ size = 96, className, animated = false }: S
       {/* Head */}
       <circle cx="120" cy="84" r="40" fill="#B79B8C" />
 
-      {/* Ears — small and rounded, mostly wrapped, unlike large pointed ears */}
-      <circle cx="80" cy="90" r="7" fill="#B79B8C" />
-      <circle cx="160" cy="90" r="7" fill="#B79B8C" />
+      {/* Long, drooping earlobes — a traditional mark of wisdom/spiritual
+          attainment in Indian iconography, and a deliberately different
+          shape from a pointed ear: rounded, elongated, with a small ring. */}
+      <path
+        d="M79 86 C72 86 66 94 68 104 C69 112 76 118 83 114 C86 108 85 96 80 87 Z"
+        fill="#B79B8C"
+      />
+      <circle cx="76" cy="106" r="2.6" fill="none" stroke="#C8A96B" strokeWidth="1.6" opacity="0.85" />
+      <path
+        d="M161 86 C168 86 174 94 172 104 C171 112 164 118 157 114 C154 108 155 96 160 87 Z"
+        fill="#B79B8C"
+      />
+      <circle cx="164" cy="106" r="2.6" fill="none" stroke="#C8A96B" strokeWidth="1.6" opacity="0.85" />
 
       {/* Gold-trimmed headwrap in place of hair/exposed pointed ears */}
       <path
@@ -141,14 +156,34 @@ export default function SageMascot({ size = 96, className, animated = false }: S
       />
       <path d="M190 46 l1.6 4.2 4.2 1.6 -4.2 1.6 -1.6 4.2 -1.6 -4.2 -4.2 -1.6 4.2 -1.6 Z" fill="#F8F8F5" />
 
-      {/* Face */}
-      <circle cx="120" cy="70" r="3" fill="#9B4B63" />
-      <path d="M100 88 Q107 94 114 88" stroke="#2A1B40" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M126 88 Q133 94 140 88" stroke="#2A1B40" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M98 80 Q107 75 116 80" stroke="#2A1B40" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6" />
-      <path d="M124 80 Q133 75 142 80" stroke="#2A1B40" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6" />
-      <path d="M117 96 Q120 100 123 96" stroke="#2A1B40" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.5" />
-      <path d="M104 106 Q120 116 136 106" stroke="#2A1B40" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.55" />
+      {/* Forehead creases — an elder's face */}
+      <path d="M94 70 Q120 64 146 70" stroke="#8F7565" strokeWidth="1.4" fill="none" strokeLinecap="round" opacity="0.35" />
+      <path d="M97 76 Q120 71 143 76" stroke="#8F7565" strokeWidth="1.4" fill="none" strokeLinecap="round" opacity="0.3" />
+
+      {/* Third-eye mark */}
+      <circle cx="120" cy="82" r="3" fill="#9B4B63" />
+
+      {/* Bushy, pale, downturned brows — read as ancient and wise rather
+          than the thin neutral arcs of the earlier version. */}
+      <path d="M94 90 Q104 80 120 87 Q107 87 98 95 Z" fill="#E7E3F5" opacity="0.92" />
+      <path d="M146 90 Q136 80 120 87 Q133 87 142 95 Z" fill="#E7E3F5" opacity="0.92" />
+
+      {/* Deep-set, calm closed eyes */}
+      <path d="M100 100 Q107 106 114 100" stroke="#2A1B40" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M126 100 Q133 106 140 100" stroke="#2A1B40" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M97 97 Q107 92 116 97" stroke="#2A1B40" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.3" />
+      <path d="M124 97 Q133 92 143 97" stroke="#2A1B40" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.3" />
+
+      {/* Nose and serene smile */}
+      <path d="M117 108 Q120 112 123 108" stroke="#2A1B40" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.5" />
+      <path d="M104 118 Q120 128 136 118" stroke="#2A1B40" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.55" />
+
+      {/* A wisp of white beard at the chin — finishes the "ancient elder" read */}
+      <path
+        d="M108 120 Q113 133 120 135 Q127 133 132 120 Q126 128 120 128 Q114 128 108 120 Z"
+        fill="#EDEAF7"
+        opacity="0.9"
+      />
     </svg>
   );
 }
