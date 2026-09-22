@@ -56,8 +56,17 @@ export default function CityAutocomplete({
   }, [value]);
 
   function handleSelect(city: CityMatch) {
+    // Only notify the parent of the selection here. The parent updates
+    // both the selected city and the display text together (see
+    // BirthDetailsForm's onSelect handler) — previously this also called
+    // onInputChange(), which raced with onSelect(): both ultimately call
+    // the same setSelectedCity() setter in one batched React update, and
+    // onInputChange's "clear selection on text change" logic (meant for
+    // manual typing) ran after onSelect() and wiped out the just-selected
+    // city, even though the input visibly showed the right text. That made
+    // every location-based calculator fail with "no city selected" right
+    // after a seemingly successful dropdown click.
     onSelect(city);
-    onInputChange(`${city.name}, ${city.countryName}`);
     setOpen(false);
   }
 

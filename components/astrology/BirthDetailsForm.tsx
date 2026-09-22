@@ -194,7 +194,14 @@ export default function BirthDetailsForm({
             id={id("place")}
             value={placeText}
             onInputChange={handlePlaceTextChange}
-            onSelect={setSelectedCity}
+            onSelect={(city) => {
+              // Set the selected city and the display text together, in
+              // one handler, so a dropdown click can never be undone by
+              // handlePlaceTextChange's "clear selection on manual typing"
+              // logic (see the comment in CityAutocomplete.handleSelect).
+              setSelectedCity(city);
+              setPlaceText(`${city.name}, ${city.countryName}`);
+            }}
           />
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
