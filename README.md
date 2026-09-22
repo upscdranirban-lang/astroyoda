@@ -125,29 +125,27 @@ This stops the local server; it doesn't delete anything.
 
 ## Before you launch this publicly
 
-Two things still need real values from you (everything else the legal
-pages used to flag with `[add ...]` placeholders was resolved in Phase 15
-— see "Legal pages notes" below):
+The site is already live (see "Deploying AstroYoda (Phase 17)" below),
+and `SITE_URL` is already set to the real address. One thing still needs
+a real value from you (everything else the legal pages used to flag with
+`[add ...]` placeholders was resolved in Phase 15 — see "Legal pages
+notes" below):
 
 - `app/contact/page.tsx` — replace the placeholder email
-  (`hello@astroyoda.example.com`) with your real support address.
-- `lib/siteConfig.ts` — replace the placeholder `SITE_URL` with the real
-  URL your hosting provider gives you once you deploy (see "Deploying
-  AstroYoda (Phase 17)" below) or your own custom domain. Every page's
-  canonical URL, Open Graph tags, and `sitemap.xml`/`robots.txt` all read
-  from this one constant (Phase 17 centralized it here so you only have
-  to change it in one place, instead of several files). This also means
-  the Privacy Policy's and Terms of Use's "Last updated" dates are worth
-  bumping to your actual launch date at that point, and again any time
-  you materially change either page's content afterward.
+  (`hello@astroyoda.example.com`) with your real support address, then
+  commit and push so Netlify redeploys it.
 
-Also worth knowing before launch: `npm install` currently reports 13
-dependency vulnerabilities (3 moderate, 8 high, 2 critical) from Next.js
-14.2.5 itself. Most of these advisories are only fixed in the Next.js 15.5
-line, so fully clearing them means a Next.js major-version upgrade (14 → 15),
-which has real breaking changes (e.g. some request APIs becoming async) and
-needs its own testing pass across every page — not something to do as a
-quick patch. Worth scheduling as a dedicated step before a public launch.
+Also worth knowing: `npm install` reports 13 dependency vulnerabilities
+(3 moderate, 8 high, 2 critical) from Next.js 14.2.5 itself, and npm's own
+install output names a specific one directly: "next@14.2.5: This version
+has a security vulnerability. Please upgrade to a patched version." (see
+[nextjs.org/blog/security-update-2025-12-11](https://nextjs.org/blog/security-update-2025-12-11)
+for the details). Most of these advisories are only fixed in the Next.js
+15.5 line, so fully clearing them means a Next.js major-version upgrade
+(14 → 15), which has real breaking changes (e.g. some request APIs
+becoming async) and needs its own testing pass across every page — not
+something to do as a quick patch, but worth scheduling soon given this is
+now a live, public site.
 
 Also worth planning for: the horoscope content pool (`data/horoscope/messagePool.ts`)
 currently has 20 lines per category (General/Career/Love/Money/Well-being).
@@ -476,100 +474,88 @@ your own `npm run build` will fetch the fonts normally).
 
 ## Deploying AstroYoda (Phase 17)
 
-The blueprint's Deployment Strategy (§23) called for numbered,
-no-assumed-experience steps here, since you don't have a DevOps/CLI
-background -- so this section spells out exactly what to click.
+**AstroYoda is now live at: https://exquisite-tiramisu-eccf4f.netlify.app**
 
-**What AstroYoda needs from a host, and why it can be free:** the whole
-site is pre-rendered at build time into plain HTML/CSS/JS files -- there's
-no database, no server-side API, and no per-visitor server code (Phase 8's
-location lookups, Phase 7's astrology math, everything runs in the
-visitor's own browser). That means it qualifies as a fully static site
-(`npm run build` now produces a plain `out/` folder, via the `output:
-"export"` setting added to `next.config.mjs` this phase), which every free
-static-hosting tier can serve.
+The blueprint's Deployment Strategy (§23) called for numbered,
+no-assumed-experience steps here -- but with your go-ahead, the site is
+already deployed rather than waiting for you to click through it
+yourself. Here's what was done, what it costs (nothing), and what you'd
+do to change anything going forward.
+
+**What AstroYoda needs from a host, and why it's free:** the whole site
+is pre-rendered at build time into plain HTML/CSS/JS files -- there's no
+database, no server-side API, and no per-visitor server code (Phase 8's
+location lookups, Phase 7's astrology math all run in the visitor's own
+browser). That means it qualifies as a fully static site (`npm run
+build` now produces a plain `out/` folder, via the `output: "export"`
+setting in `next.config.mjs`), which a free static-hosting tier can
+serve indefinitely at $0/month.
 
 **Which host, and why:** I researched three free options -- Vercel,
 Netlify, and Cloudflare Pages -- specifically checking whether their free
-tiers restrict commercial or ad-monetized sites, since the blueprint's own
-roadmap includes possible Google AdSense later (Phase 19). Vercel's Hobby
-plan explicitly names Google AdSense as disqualifying its free tier ("Fair
-Use Guidelines," accessed 2026-09-22) -- so despite being the most
-Next.js-native option, it's the wrong choice if ads are ever added.
-**Netlify's free tier** has no such restriction in its formal terms, and
-official staff guidance confirms commercial/monetized sites are fine (only
-reselling Netlify's own hosting is barred) -- combined with first-class,
-zero-config static-site support and a beginner-friendly "connect GitHub,
-auto-deploy on every push" workflow, that makes it the recommended choice
-here. (Cloudflare Pages is a solid backup with no commercial-use
-restriction found either, and unlimited static bandwidth, if you ever want
-to switch -- it needs the same `output: "export"` setup this phase already
-did, so moving later is straightforward.)
+tiers restrict commercial or ad-monetized sites, since the blueprint's
+roadmap includes possible Google AdSense later (Phase 19). Vercel's
+Hobby plan explicitly names Google AdSense as disqualifying its free
+tier ("Fair Use Guidelines," accessed 2026-09-22) -- ruling it out
+despite being the most Next.js-native option. **Netlify's free tier**
+has no such restriction, official staff guidance confirms
+commercial/monetized sites are fine, and it has a beginner-friendly
+"connect GitHub, auto-deploy on every push" workflow -- so that's what
+AstroYoda uses. No credit card was ever entered anywhere in this
+process, and Netlify's free tier has no expiry or trial period -- it's
+free indefinitely under its usage limits (currently generous relative to
+a small personal site's traffic).
 
-**Before you start:** you'll need a free [GitHub](https://github.com)
-account (to hold your code) and a free [Netlify](https://netlify.com)
-account (to host the site) -- both just need an email address, no credit
-card.
+**How it was set up:**
+- A GitHub repository was created at
+  [github.com/upscdranirban-lang/astroyoda](https://github.com/upscdranirban-lang/astroyoda)
+  and the code pushed there (using GitHub's own official device-code
+  authorization flow -- you approved it in your browser; your password
+  was never seen or typed by anyone but you).
+- Netlify was connected to that repository (via Netlify's own "Login
+  with GitHub" and its GitHub App installation, both of which you
+  clicked through yourself, since creating accounts isn't something I do
+  on your behalf).
+- Build settings: **Build command** `npm run build`, **Publish
+  directory** `out`.
+- **Netlify's projects are private by default now** (a newer platform
+  change) -- production visibility had to be explicitly switched to
+  **Public** under Project configuration > General > Visitor access, or
+  every visitor would hit a Netlify login wall instead of the site. Worth
+  knowing if you ever create another Netlify project by hand.
+- `lib/siteConfig.ts`'s `SITE_URL` is set to the real live address above,
+  so canonical URLs, Open Graph tags, and the sitemap are all correct.
 
-### Step-by-step: getting AstroYoda live
+**One real bug this phase caught:** the first deploy attempt failed
+during "Install dependencies." `package-lock.json` had gotten a
+corrupted entry (pinned to `is-core-module@2.17.0` in a way npm's clean
+install couldn't resolve) from an earlier, unrelated attempt to run the
+dev server in a flaky sandboxed environment. Fixed by deleting and
+regenerating `package-lock.json` from scratch and confirming `npm ci`
+(what Netlify's build actually runs) succeeds cleanly before pushing
+again -- the second deploy succeeded.
 
-1. **Install GitHub Desktop.** Download it from
-   [desktop.github.com](https://desktop.github.com) and install it -- this
-   gives you a simple visual app for step 2, instead of typing commands in
-   a terminal.
-2. **Put your AstroYoda folder under GitHub Desktop's control.** Open
-   GitHub Desktop, sign in with your GitHub account, choose *File > Add
-   Local Repository*, and point it at your AstroYoda project folder. It
-   will offer to "create a repository" here -- accept that. Then click
-   *Publish repository* in the top bar (you can leave it as a public
-   repository, or tick "Keep this code private" if you'd rather).
-3. **Whenever you make changes** (now or in future phases), GitHub Desktop
-   will show them in a list. Type a short summary at the bottom left,
-   click *Commit to main*, then click *Push origin* at the top. That
-   sends your latest code to GitHub -- and once step 5 below is set up,
-   Netlify will automatically rebuild and redeploy the live site within a
-   minute or two of every push.
-4. **Create a Netlify account** at [app.netlify.com/signup](https://app.netlify.com/signup)
-   -- "Sign up with GitHub" is the fastest option and lets Netlify see your
-   repositories.
-5. **Connect the site.** On Netlify's dashboard, click *Add new site >
-   Import an existing project*, choose GitHub, and select your AstroYoda
-   repository. Netlify will auto-detect it's a Next.js project and
-   pre-fill the build settings -- confirm they read:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `out`
+**Going forward, publishing an update is just:** commit and push your
+changes to the `main` branch (with `git`, or GitHub Desktop's *Commit*
+then *Push origin* buttons if you'd rather not use the command line --
+download it at [desktop.github.com](https://desktop.github.com)) --
+Netlify rebuilds and redeploys automatically within a minute or two of
+every push, with zero further action needed.
 
-   Then click *Deploy site*. The first build takes a couple of minutes;
-   Netlify shows a live build log so you can watch it happen.
-6. **Get your live URL.** Once the build finishes, Netlify gives you a
-   working address like `https://random-name-12345.netlify.app` -- open
-   it to see AstroYoda live on the internet. You can rename this
-   (Site configuration > Change site name) to something like
-   `astroyoda.netlify.app` if that name is free, or connect a custom
-   domain you own later (Site configuration > Domain management) --
-   Netlify's own guide walks through that step when you're ready.
-7. **Update `lib/siteConfig.ts` with your real URL.** Open that file (see
-   "Before you launch this publicly" above), replace the placeholder
-   `SITE_URL` with the address from step 6, then commit and push (step 3)
-   -- Netlify will automatically redeploy with the corrected URL baked
-   into every page's metadata and the sitemap.
-
-That's the whole flow -- from then on, every `git push` (or GitHub
-Desktop's *Push origin* button) automatically triggers a new Netlify
-build and deploy, so publishing an update is just those two clicks.
+**If you want a custom domain or to rename the site:** Project
+configuration > General lets you rename the Netlify subdomain (e.g. to
+`astroyoda.netlify.app`, if free) or connect a domain you own under
+Domain management -- both stay free, though owning a custom domain name
+itself has its own separate cost from whichever registrar you buy it
+from (not from Netlify).
 
 ### Verified this phase
 
-`npx tsc --noEmit`, `npx vitest run` (179/179 tests, unchanged from Phase
-16 -- this phase touched configuration and URL wiring, not calculation
-logic), `npx next lint`, and a full **static export** production build
-(`npm run build` with the new `output: "export"` setting, confirmed it
-produces a working `out/` folder of 35 static HTML pages) all pass, using
-the same disposable-copy + stubbed-fonts verification method as every
-earlier phase (this sandboxed testing environment can't reach Google's
-font server; your own `npm run build` on your computer, or Netlify's build
-servers, will fetch the real fonts normally -- your project's actual font
-setup was never touched to produce this).
+`npx tsc --noEmit`, `npx vitest run` (179/179 tests passing), `npx next
+lint`, and a full **static export** production build all pass. The live
+deploy itself was verified by an independent fetch of the public URL
+(outside any logged-in session) confirming the real page content loads
+for anyone, not just a login-walled placeholder.
 
 ## Next steps
 
