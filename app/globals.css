@@ -81,3 +81,26 @@
       text-xs sm:text-sm text-textMuted;
   }
 }
+
+/* Decorative night-sky starfield (see components/StarryBackground.tsx) and
+   the sage mascot's floating sparkles (see components/SageMascot.tsx). Kept
+   as a plain opacity pulse so the existing prefers-reduced-motion rule
+   above (which forces a single, near-instant animation iteration) leaves
+   every star settled on a fully visible, static dot rather than something
+   mid-fade. */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.star-twinkle {
+  animation-name: twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+

@@ -1,10 +1,17 @@
 import Link from "next/link";
 import WisdomBanner from "@/components/WisdomBanner";
+import SageMascot from "@/components/SageMascot";
 
 export default function Hero() {
   return (
-    <section className="container-page pt-12 sm:pt-20 pb-14 text-center">
-      <h1 className="font-display text-4xl sm:text-6xl font-semibold leading-tight">
+    <section className="container-page pt-10 sm:pt-16 pb-14 text-center">
+      <div className="flex justify-center">
+        <SageMascot size={128} animated className="drop-shadow-[0_0_25px_rgba(141,134,201,0.35)]" />
+      </div>
+      <p className="mt-2 text-xs uppercase tracking-[0.2em] text-gold/80">
+        Your guide through the stars
+      </p>
+      <h1 className="mt-3 font-display text-4xl sm:text-6xl font-semibold leading-tight">
         Know Your Stars.
         <br />
         Understand Yourself.

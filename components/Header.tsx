@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import MobileBottomNav from "@/components/MobileBottomNav";
+import SageMascot from "@/components/SageMascot";
 
 const primaryNav = [
   { href: "/", label: "Home" },
@@ -22,7 +23,8 @@ export default function Header() {
     <>
       <header className="sticky top-0 z-50 border-b border-white/10 bg-navy/90 backdrop-blur">
         <div className="container-page flex h-16 items-center justify-between">
-          <Link href="/" className="font-display text-lg font-semibold tracking-wide">
+          <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold tracking-wide">
+            <SageMascot size={30} className="shrink-0" />
             AstroYoda
           </Link>
 
