@@ -8,17 +8,18 @@ interface SageMascotProps {
 /**
  * AstroYoda's mascot: an original, hand-drawn "cosmic sage" character.
  *
- * The brief was "give it Yoda vibes" — so this leans into the *archetype*
- * (small, ancient, wise, gently wrinkled) through original details rather
- * than copying Yoda's own protected design: lavender skin instead of
- * green; long, drooping earlobes (a traditional mark of wisdom in Indian
- * iconography) instead of large pointed ears; a gold-trimmed headwrap
- * instead of a bald head; forehead creases, bushy pale eyebrows and a
- * wisp of a white beard for an elder's face; an asymmetric draped
- * Vedic-sage robe with a japa mala and forehead mark instead of a plain
- * hooded robe; seated in meditation under a starlit aura rather than
- * standing with a cane. Recognizable as "wise ancient little guide," not
- * as any specific copyrighted character.
+ * The brief was "give it Yoda vibes" and "more painterly, less flat
+ * cartoon" — so this leans into the archetype (small, ancient, wise) and
+ * uses gradient shading (a warm directional light on the skin, fabric-fold
+ * shadow lines on the robe) to read as a shaded illustration rather than a
+ * flat icon, while staying visually distinct from any existing
+ * copyrighted character: warm tan skin rather than green, long drooping
+ * earlobes (a traditional mark of wisdom in Indian iconography) instead
+ * of large pointed ears, a gold-trimmed headwrap instead of a bald head,
+ * forehead creases and pale downturned brows for an elder's face, an
+ * asymmetric draped Vedic-sage robe with a japa mala and forehead mark
+ * instead of a plain hooded robe, seated in meditation under a starlit
+ * aura rather than standing with a cane.
  */
 export default function SageMascot({ size = 96, className, animated = false }: SageMascotProps) {
   return (
@@ -36,13 +37,22 @@ export default function SageMascot({ size = 96, className, animated = false }: S
           <stop offset="60%" stopColor="#667EEA" stopOpacity="0.12" />
           <stop offset="100%" stopColor="#667EEA" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="sageRobe" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#5B3E86" />
-          <stop offset="100%" stopColor="#3A2657" />
+        <linearGradient id="sageRobe" x1="0.15" y1="0" x2="0.85" y2="1">
+          <stop offset="0%" stopColor="#6A4A98" />
+          <stop offset="100%" stopColor="#382451" />
         </linearGradient>
         <linearGradient id="sageShawl" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#9B4B63" />
-          <stop offset="100%" stopColor="#6E2F44" />
+          <stop offset="0%" stopColor="#AC5570" />
+          <stop offset="100%" stopColor="#692E42" />
+        </linearGradient>
+        <radialGradient id="skinShade" cx="38%" cy="30%" r="75%">
+          <stop offset="0%" stopColor="#CBA88F" />
+          <stop offset="55%" stopColor="#B08D74" />
+          <stop offset="100%" stopColor="#8F6E58" />
+        </radialGradient>
+        <linearGradient id="wrapShade" x1="0" y1="0" x2="0.3" y2="1">
+          <stop offset="0%" stopColor="#DDBD84" />
+          <stop offset="100%" stopColor="#B08A4E" />
         </linearGradient>
       </defs>
 
@@ -61,7 +71,7 @@ export default function SageMascot({ size = 96, className, animated = false }: S
         <circle cx="34" cy="130" r="2.2" />
       </g>
 
-      {/* Crossed-leg base */}
+      {/* Crossed-leg base, with a soft highlight and fold lines for depth */}
       <path
         d="M36 232 C36 190 72 172 120 172 C168 172 204 190 204 232 C204 240 196 244 188 244 L52 244 C44 244 36 240 36 232 Z"
         fill="url(#sageRobe)"
@@ -74,6 +84,9 @@ export default function SageMascot({ size = 96, className, animated = false }: S
         opacity="0.55"
         strokeLinecap="round"
       />
+      <path d="M70 220 C84 206 100 199 118 198" fill="none" stroke="#2A1B40" strokeWidth="2" opacity="0.25" strokeLinecap="round" />
+      <path d="M170 220 C156 206 140 199 122 198" fill="none" stroke="#2A1B40" strokeWidth="2" opacity="0.25" strokeLinecap="round" />
+      <ellipse cx="95" cy="200" rx="20" ry="8" fill="#F8F8F5" opacity="0.06" />
 
       {/* Torso */}
       <path
@@ -92,6 +105,7 @@ export default function SageMascot({ size = 96, className, animated = false }: S
         strokeWidth="2"
         opacity="0.6"
       />
+      <path d="M104 132 C116 128 130 128 142 133" fill="none" stroke="#3E1E2A" strokeWidth="1.6" opacity="0.3" strokeLinecap="round" />
 
       {/* Arms meeting in a gyan mudra at the chest */}
       <path
@@ -102,8 +116,8 @@ export default function SageMascot({ size = 96, className, animated = false }: S
         d="M154 150 C170 160 174 178 158 192 C150 196 142 194 140 188 C150 182 154 170 148 156 Z"
         fill="url(#sageRobe)"
       />
-      <circle cx="112" cy="190" r="7" fill="#B79B8C" />
-      <circle cx="128" cy="190" r="7" fill="#B79B8C" />
+      <circle cx="112" cy="190" r="7" fill="url(#skinShade)" />
+      <circle cx="128" cy="190" r="7" fill="url(#skinShade)" />
       <circle cx="120" cy="188" r="3" fill="#3A2657" opacity="0.35" />
 
       {/* Japa mala (prayer beads) draped across the chest */}
@@ -117,73 +131,67 @@ export default function SageMascot({ size = 96, className, animated = false }: S
       </g>
 
       {/* Neck */}
-      <rect x="108" y="106" width="24" height="18" rx="8" fill="#B79B8C" />
+      <rect x="108" y="106" width="24" height="18" rx="8" fill="url(#skinShade)" />
 
-      {/* Head */}
-      <circle cx="120" cy="84" r="40" fill="#B79B8C" />
+      {/* Head + face, scaled and centered from a design authored around a
+          120,120 / r=56 origin so the proportions read clearly even at
+          this smaller in-context size. */}
+      <g transform="translate(120,84) scale(0.714286) translate(-120,-120)">
+        <circle cx="120" cy="120" r="56" fill="url(#skinShade)" />
 
-      {/* Long, drooping earlobes — a traditional mark of wisdom/spiritual
-          attainment in Indian iconography, and a deliberately different
-          shape from a pointed ear: rounded, elongated, with a small ring. */}
-      <path
-        d="M79 86 C72 86 66 94 68 104 C69 112 76 118 83 114 C86 108 85 96 80 87 Z"
-        fill="#B79B8C"
-      />
-      <circle cx="76" cy="106" r="2.6" fill="none" stroke="#C8A96B" strokeWidth="1.6" opacity="0.85" />
-      <path
-        d="M161 86 C168 86 174 94 172 104 C171 112 164 118 157 114 C154 108 155 96 160 87 Z"
-        fill="#B79B8C"
-      />
-      <circle cx="164" cy="106" r="2.6" fill="none" stroke="#C8A96B" strokeWidth="1.6" opacity="0.85" />
+        {/* Long, drooping earlobes — a traditional mark of wisdom/spiritual
+            attainment in Indian iconography, and deliberately unlike a
+            pointed ear */}
+        <path d="M76 122 C66 122 58 132 61 145 C63 154 72 161 81 156 C85 148 84 132 78 122 Z" fill="url(#skinShade)" />
+        <circle cx="72" cy="147" r="3.4" fill="none" stroke="#DDBD84" strokeWidth="2" opacity="0.85" />
+        <path d="M164 122 C174 122 182 132 179 145 C177 154 168 161 159 156 C155 148 156 132 162 122 Z" fill="url(#skinShade)" />
+        <circle cx="168" cy="147" r="3.4" fill="none" stroke="#DDBD84" strokeWidth="2" opacity="0.85" />
 
-      {/* Gold-trimmed headwrap in place of hair/exposed pointed ears */}
-      <path
-        d="M76 78 C76 48 96 26 120 26 C144 26 164 48 164 78 L164 86 C150 68 136 60 120 60 C104 60 90 68 76 86 Z"
-        fill="#C8A96B"
-      />
-      <path
-        d="M76 78 C76 48 96 26 120 26 C144 26 164 48 164 78"
-        fill="none"
-        stroke="#3A2657"
-        strokeWidth="2"
-        opacity="0.25"
-      />
-      {/* Wrap knot with a small crescent-and-star finial */}
-      <path d="M162 66 L176 58 L172 72 Z" fill="#C8A96B" />
-      <path
-        d="M182 52 a6 6 0 1 0 0.1 0 a4.6 4.6 0 1 1 -0.1 0 Z"
-        fill="#8D86C9"
-      />
-      <path d="M190 46 l1.6 4.2 4.2 1.6 -4.2 1.6 -1.6 4.2 -1.6 -4.2 -4.2 -1.6 4.2 -1.6 Z" fill="#F8F8F5" />
+        {/* Gold-trimmed headwrap in place of hair/exposed pointed ears */}
+        <path
+          d="M64 106 C64 66 90 34 120 34 C150 34 176 66 176 106 L176 118 C158 92 140 80 120 80 C100 80 82 92 64 118 Z"
+          fill="url(#wrapShade)"
+        />
+        <path
+          d="M64 106 C64 66 90 34 120 34 C150 34 176 66 176 106"
+          fill="none"
+          stroke="#5B3E26"
+          strokeWidth="2"
+          opacity="0.25"
+        />
+        {/* Wrap knot with a small crescent-and-star finial */}
+        <path d="M172 96 L190 86 L185 104 Z" fill="url(#wrapShade)" />
+        <path d="M198 78 a8 8 0 1 0 0.1 0 a6 6 0 1 1 -0.1 0 Z" fill="#8D86C9" />
+        <path d="M208 68 l2.2 5.8 5.8 2.2 -5.8 2.2 -2.2 5.8 -2.2 -5.8 -5.8 -2.2 5.8 -2.2 Z" fill="#F8F8F5" />
 
-      {/* Forehead creases — an elder's face */}
-      <path d="M94 70 Q120 64 146 70" stroke="#8F7565" strokeWidth="1.4" fill="none" strokeLinecap="round" opacity="0.35" />
-      <path d="M97 76 Q120 71 143 76" stroke="#8F7565" strokeWidth="1.4" fill="none" strokeLinecap="round" opacity="0.3" />
+        {/* Forehead creases — an elder's face */}
+        <path d="M92 96 Q120 89 148 96" stroke="#6B4E38" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity="0.35" />
+        <path d="M96 104 Q120 98 144 104" stroke="#6B4E38" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity="0.3" />
 
-      {/* Third-eye mark */}
-      <circle cx="120" cy="82" r="3" fill="#9B4B63" />
+        {/* Third-eye mark */}
+        <ellipse cx="120" cy="112" rx="3" ry="4" fill="#9B4B63" />
 
-      {/* Bushy, pale, downturned brows — read as ancient and wise rather
-          than the thin neutral arcs of the earlier version. */}
-      <path d="M94 90 Q104 80 120 87 Q107 87 98 95 Z" fill="#E7E3F5" opacity="0.92" />
-      <path d="M146 90 Q136 80 120 87 Q133 87 142 95 Z" fill="#E7E3F5" opacity="0.92" />
+        {/* Thin, tapered brows sitting clearly above the eyes */}
+        <path d="M90 122 Q100 114 114 118 Q102 118 92 126 Z" fill="#EFE7DD" opacity="0.95" />
+        <path d="M150 122 Q140 114 126 118 Q138 118 148 126 Z" fill="#EFE7DD" opacity="0.95" />
 
-      {/* Deep-set, calm closed eyes */}
-      <path d="M100 100 Q107 106 114 100" stroke="#2A1B40" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M126 100 Q133 106 140 100" stroke="#2A1B40" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M97 97 Q107 92 116 97" stroke="#2A1B40" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.3" />
-      <path d="M124 97 Q133 92 143 97" stroke="#2A1B40" strokeWidth="1.6" fill="none" strokeLinecap="round" opacity="0.3" />
+        {/* Closed, calm eyes with a small lash flick */}
+        <path d="M96 136 Q106 142 116 136" stroke="#3A2A1E" strokeWidth="3" fill="none" strokeLinecap="round" />
+        <path d="M96 136 L91 133" stroke="#3A2A1E" strokeWidth="2" fill="none" strokeLinecap="round" />
+        <path d="M124 136 Q134 142 144 136" stroke="#3A2A1E" strokeWidth="3" fill="none" strokeLinecap="round" />
+        <path d="M144 136 L149 133" stroke="#3A2A1E" strokeWidth="2" fill="none" strokeLinecap="round" />
 
-      {/* Nose and serene smile */}
-      <path d="M117 108 Q120 112 123 108" stroke="#2A1B40" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.5" />
-      <path d="M104 118 Q120 128 136 118" stroke="#2A1B40" strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.55" />
+        {/* Soft cheek warmth */}
+        <ellipse cx="98" cy="148" rx="10" ry="6" fill="#C97C6B" opacity="0.18" />
+        <ellipse cx="142" cy="148" rx="10" ry="6" fill="#C97C6B" opacity="0.18" />
 
-      {/* A wisp of white beard at the chin — finishes the "ancient elder" read */}
-      <path
-        d="M108 120 Q113 133 120 135 Q127 133 132 120 Q126 128 120 128 Q114 128 108 120 Z"
-        fill="#EDEAF7"
-        opacity="0.9"
-      />
+        {/* Nose */}
+        <path d="M117 138 Q114 148 119 152 Q123 153 126 150" stroke="#6B4E38" strokeWidth="1.8" fill="none" strokeLinecap="round" opacity="0.5" />
+
+        {/* Serene mouth */}
+        <path d="M104 160 Q120 170 136 160" stroke="#3A2A1E" strokeWidth="2.6" fill="none" strokeLinecap="round" opacity="0.6" />
+        <path d="M108 162 Q120 167 132 162" stroke="#3A2A1E" strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.25" />
+      </g>
     </svg>
   );
 }
