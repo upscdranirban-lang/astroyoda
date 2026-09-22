@@ -2,13 +2,12 @@ import type { NakshatraPosition } from "@/types/astrology";
 import type { NakshatraComparison } from "@/types/compatibility";
 
 /**
- * A light, qualitative Nakshatra comparison — NOT the formal Vedic
- * "Guna Milan" / Kundli-matching system (which scores eight specific
- * factors, including a formal Gana Koota and Nakshatra-pair table out of
- * 36 points). That formal scoring is explicitly out of scope for V1 per
- * the blueprint's §10 ("V2+ scope"); this instead surfaces the same/
- * different Nakshatra, ruling planet and Gana as plain traditional facts
- * with a brief qualitative note, not a point score or verdict.
+ * A light, qualitative Nakshatra comparison — separate from the formal
+ * Ashtakoot "Guna Milan" scoring system (lib/compatibility/gunaMilan.ts),
+ * which covers the same/different Nakshatra, ruling planet and Gana
+ * territory with an actual point score. This one stays purely
+ * descriptive: the same/different Nakshatra, ruling planet and Gana as
+ * plain traditional facts with a brief qualitative note, no point score.
  */
 export function compareNakshatras(a: NakshatraPosition, b: NakshatraPosition): NakshatraComparison {
   const sameNakshatra = a.attributes.name === b.attributes.name;

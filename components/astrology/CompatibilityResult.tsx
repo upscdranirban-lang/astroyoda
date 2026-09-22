@@ -41,9 +41,11 @@ export default function CompatibilityResult({ result }: { result: CompatibilityR
       <div className="card border-gold/40">
         <p className="text-sm text-gold/90">
           These are traditional, symbolic indicators for reflection —{" "}
-          <strong>not a compatibility score, percentage, or a prediction about your relationship&apos;s success.</strong>{" "}
+          <strong>not a prediction about your relationship&apos;s success.</strong>{" "}
           Two people with a &ldquo;traditionally takes effort&rdquo; indicator can have a wonderful relationship, and
-          vice versa; real compatibility depends on far more than a birth chart.
+          vice versa; real compatibility depends on far more than a birth chart. (The Guna Milan score
+          above is the one traditional part of this page that does use points — everything below it stays
+          qualitative.)
         </p>
       </div>
 

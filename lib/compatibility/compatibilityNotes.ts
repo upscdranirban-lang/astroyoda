@@ -11,9 +11,10 @@ import { compareNakshatras } from "@/lib/compatibility/nakshatraComparison";
  * 'chance of successful marriage' claim." Reuses the same astronomical
  * engine as Birth Chart — no duplicate ephemeris logic, no live/paid API.
  *
- * Deliberately excluded from V1 (see the blueprint's V2+ scope): formal
- * Guna Milan / Kundli matching, Nakshatra compatibility scoring out of 36
- * points, and Mangal Dosha (Manglik) analysis.
+ * The formal 36-point Ashtakoot Guna Milan score lives separately in
+ * lib/compatibility/gunaMilan.ts (added later, on request) and is shown
+ * alongside these notes on the Compatibility page. Mangal Dosha (Manglik)
+ * analysis remains out of scope.
  */
 export function getCompatibilityNotes(chartA: BirthChartResult, chartB: BirthChartResult): CompatibilityResult {
   const moonA = chartA.planets.find((p) => p.planet === "Moon")!;

@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { calculateBirthChart } from "@/lib/astrology";
-import { getCompatibilityNotes } from "@/lib/compatibility";
+import { getCompatibilityNotes, calculateGunaMilan } from "@/lib/compatibility";
 import type { BirthChartResult } from "@/types/astrology";
-import type { CompatibilityResult as CompatibilityResultType } from "@/types/compatibility";
+import type { CompatibilityResult as CompatibilityResultType, GunaMilanResult } from "@/types/compatibility";
 import BirthDetailsForm, { type ResolvedBirthDetails } from "@/components/astrology/BirthDetailsForm";
 import CompatibilityResult from "@/components/astrology/CompatibilityResult";
+import GunaMilanScore from "@/components/astrology/GunaMilanScore";
 
 interface PersonState {
   details: ResolvedBirthDetails;
@@ -28,6 +29,9 @@ export default function CompatibilityForm() {
 
   const compatibility: CompatibilityResultType | null =
     personA && personB ? getCompatibilityNotes(personA.chart, personB.chart) : null;
+
+  const gunaMilan: GunaMilanResult | null =
+    personA && personB ? calculateGunaMilan(personA.chart, personB.chart) : null;
 
   return (
     <div>
@@ -64,6 +68,12 @@ export default function CompatibilityForm() {
         <p className="mt-6 text-sm text-textMuted">
           Save both {personA ? "Person B's" : "Person A's"} details above to see the comparison.
         </p>
+      )}
+
+      {gunaMilan && (
+        <div className="mt-8">
+          <GunaMilanScore result={gunaMilan} />
+        </div>
       )}
 
       {compatibility && <CompatibilityResult result={compatibility} />}
