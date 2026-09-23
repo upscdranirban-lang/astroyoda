@@ -17,8 +17,8 @@ export default function ContactPage() {
         </p>
         <p>
           Email:{" "}
-          <a href="mailto:hello@astroyoda.example.com" className="underline hover:text-textPrimary">
-            hello@astroyoda.example.com
+          <a href="mailto:parivrajaka9@gmail.com" className="underline hover:text-textPrimary">
+            parivrajaka9@gmail.com
           </a>
         </p>
         <p className="text-sm text-textMuted/80">

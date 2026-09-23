@@ -10,8 +10,9 @@ export function generateStaticParams() {
   return validSlugs.map((sign) => ({ sign }));
 }
 
-export function generateMetadata({ params }: { params: { sign: string } }) {
-  const slug = params.sign.toLowerCase();
+export async function generateMetadata({ params }: { params: Promise<{ sign: string }> }) {
+  const { sign } = await params;
+  const slug = sign.toLowerCase();
   const label = slug.charAt(0).toUpperCase() + slug.slice(1);
   return buildMetadata({
     title: `${label} Horoscope Today`,
@@ -20,8 +21,9 @@ export function generateMetadata({ params }: { params: { sign: string } }) {
   });
 }
 
-export default function SignHoroscopePage({ params }: { params: { sign: string } }) {
-  const slug = params.sign.toLowerCase();
+export default async function SignHoroscopePage({ params }: { params: Promise<{ sign: string }> }) {
+  const { sign: signParam } = await params;
+  const slug = signParam.toLowerCase();
   if (!validSlugs.includes(slug)) {
     notFound();
   }

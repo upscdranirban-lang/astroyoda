@@ -10,8 +10,9 @@ export function generateStaticParams() {
   return getAllLearnSlugs().map((slug) => ({ slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = getLearnArticle(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = getLearnArticle(slug);
   if (!article) return {};
   return buildMetadata({
     title: article.title,
@@ -20,8 +21,9 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
   });
 }
 
-export default function LearnArticlePage({ params }: { params: { slug: string } }) {
-  const article = getLearnArticle(params.slug);
+export default async function LearnArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = getLearnArticle(slug);
   if (!article) {
     notFound();
   }
